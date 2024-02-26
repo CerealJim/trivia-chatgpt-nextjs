@@ -33,7 +33,7 @@ const TriviaForm: React.FC = () => {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        prompt: `Give me 3 ${difficulty} trivia questions about ${topic} with 4 options and their answer only in a json array format`,
+        prompt: `Give me 3 ${difficulty} trivia questions about ${topic} with 4 options, and their answer, only in a json array format, not a string`,
         // model: "text-davinci-003",
         model: "gpt-3.5-turbo-instruct",
         temperature: 0,
