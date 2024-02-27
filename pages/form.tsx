@@ -45,14 +45,14 @@ const TriviaForm: React.FC = () => {
     });
 
     const json = await result.json();
-    console.log(json, "json");
+    // console.log(json, "json");
 
     try {
       const chatGptAnswer = json.choices[0].text;
       const parsedTrivia: TriviaQuizProps[] = JSON.parse(
         chatGptAnswer
       ) as TriviaQuizProps[];
-      console.log(parsedTrivia, "parsed json");
+      // console.log(parsedTrivia, "parsed json");
       setTriviaQuizProps(parsedTrivia);
     } catch (error) {
       console.error("error parsing chatgpt response");
