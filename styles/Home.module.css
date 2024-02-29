@@ -2,16 +2,27 @@
   display: flex;
   flex-direction: column;
   margin: auto 20px;
+  min-height: 100vh;
 }
 .header,
 .footer,
 .main {
   z-index: 100;
 }
+.main {
+  margin-bottom: auto;
+}
 
 .header,
 .footer {
   min-height: 10vh;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
 }
 
 .h1 {

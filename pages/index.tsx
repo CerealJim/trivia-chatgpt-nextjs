@@ -30,7 +30,7 @@ export default function Home() {
             <TriviaForm />
           </div>
         </main>
-        <footer className={styles.footer}></footer>
+        <footer className={styles.footer}>Created by Jim Hazlewood </footer>
       </div>
     </>
   );
