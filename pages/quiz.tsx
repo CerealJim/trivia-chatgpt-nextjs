@@ -15,7 +15,7 @@ const TriviaQuiz: React.FC<TriviaDataProps> = ({ quizData = [] }) => {
 
   const handleAnswerSelect = (selectedUserOption: string, index: number) => {
     setSubmitted(false);
-    const newSelectedAnswers = [...selectedAnswers]; //copy by value
+    const newSelectedAnswers = [...selectedAnswers]; //copy by value using spread operator
     newSelectedAnswers[index] = selectedUserOption; //using the index, replace the answer in the correct index slot
     setSelectedAnswers(newSelectedAnswers);
 
