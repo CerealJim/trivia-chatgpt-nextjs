@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "@/styles/Question.module.css";
-// import { TriviaQuizProps } from "../types/triviaQueston";
 
 interface TriviaQuestionProps {
   question: string;
@@ -19,8 +18,12 @@ const TriviaQuestion: React.FC<TriviaQuestionProps> = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onOptionSelect(event.target.value);
-    setSelectedOption(event.target.value);
+    if (!showAnswers) {
+      onOptionSelect(event.target.value);
+      setSelectedOption(event.target.value);
+    }
+
+    // console.log(event.target.value, "selected Option");
   };
   const optionLetter: string[] = ["a. ", "b. ", "c. ", "d. "];
 
