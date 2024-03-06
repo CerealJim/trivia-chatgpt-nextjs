@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, KeyboardEventHandler } from "react";
 import TriviaQuiz from "./quiz";
 import styles from "@/styles/Form.module.css";
 import { TriviaQuizProps } from "../types/triviaQueston";
@@ -72,6 +72,12 @@ const TriviaForm: React.FC = () => {
   const handleTopicChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTopic(event.target.value);
   };
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(event, "keypress");
+    if (event.key === "Enter") {
+      handleClick();
+    }
+  };
 
   const handleFormSubmitted = () => {
     setFormSubmitted(false);
@@ -95,11 +101,11 @@ const TriviaForm: React.FC = () => {
             <h2 className={styles.formTitle}>Setup Quiz</h2>
             <div className={styles.userInput}>
               <label className={styles.label}>Enter Topic</label>
-
               <input
                 type="text"
                 value={topic}
                 onChange={handleTopicChange}
+                onKeyPress={handleKeyPress}
                 placeholder="Enter a topic"
                 maxLength={50}
                 className={styles.input}
