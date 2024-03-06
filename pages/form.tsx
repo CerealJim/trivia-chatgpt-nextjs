@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, KeyboardEventHandler } from "react";
 import TriviaQuiz from "./quiz";
 import styles from "@/styles/Form.module.css";
 import { TriviaQuizProps } from "../types/triviaQueston";
 import * as Loader from "react-loader-spinner";
+import InputError from "./InputError";
 
 interface OpenAIAPIResponse {
   data: string;
@@ -21,10 +22,18 @@ const TriviaForm: React.FC = () => {
   // State for difficulty and topic
   const [difficulty, setDifficulty] = useState("easy");
   const [topic, setTopic] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   // const [showQuestions, setShowQuestions] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   // API handler using user responses
   const handleClick = async () => {
+    if (topic.length <= 2) {
+      setErrorMessage("The topic must be at least 2 characters long.");
+      return;
+    } else {
+      setErrorMessage("");
+    }
+
     setLoading(true);
     const result = await fetch("https://api.openai.com/v1/completions", {
       method: "POST",
@@ -71,6 +80,15 @@ const TriviaForm: React.FC = () => {
 
   const handleTopicChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTopic(event.target.value);
+    if (event.target.value.length >= 2) {
+      setErrorMessage("");
+    }
+  };
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(event, "keypress");
+    if (event.key === "Enter") {
+      handleClick();
+    }
   };
 
   const handleFormSubmitted = () => {
@@ -95,11 +113,11 @@ const TriviaForm: React.FC = () => {
             <h2 className={styles.formTitle}>Setup Quiz</h2>
             <div className={styles.userInput}>
               <label className={styles.label}>Enter Topic</label>
-
               <input
                 type="text"
                 value={topic}
                 onChange={handleTopicChange}
+                onKeyPress={handleKeyPress}
                 placeholder="Enter a topic"
                 maxLength={50}
                 className={styles.input}
@@ -127,6 +145,7 @@ const TriviaForm: React.FC = () => {
               </button>
             )}
           </div>
+          {errorMessage && <InputError message={errorMessage} />}
         </div>
       )}
       <div>
